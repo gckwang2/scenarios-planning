@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAIL | Scenario & Intelligence for Liners - Fleet Strategic Planning</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Executive Navigation Bar -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <div class="brand-section">
+        <div class="brand-logo-icon">S</div>
+        <div class="brand-text">
+          <h1>SAIL <span>FLEET STRATEGY</span></h1>
+          <p>Scenario & Intelligence for Liners · Strategic Capacity Planning</p>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <span class="system-badge"><span class="badge-dot"></span> DETERMINISTIC ENGINE · SYNTHETIC BASELINE</span>
+        <button class="btn btn-outline btn-sm" id="btnMethodology">Model Methodology</button>
+        <button class="btn btn-outline btn-sm" id="btnSaveCustomTop">+ Save Scenario</button>
+        <button class="btn btn-primary btn-sm" id="btnExportBriefTop">Export Brief</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Strategic Pipeline Decision Breadcrumbs -->
+  <nav class="pipeline-bar">
+    <div class="pipeline-container">
+      <a href="#sec-posture" class="pipeline-step active" data-step="1">
+        <span class="step-num">1</span> Market Signals & Posture
+      </a>
+      <span class="pipeline-sep">→</span>
+      <a href="#sec-capacity" class="pipeline-step" data-step="2">
+        <span class="step-num">2</span> Capacity Requirements
+      </a>
+      <span class="pipeline-sep">→</span>
+      <a href="#sec-vessels" class="pipeline-step" data-step="3">
+        <span class="step-num">3</span> Vessel Selection
+      </a>
+      <span class="pipeline-sep">→</span>
+      <a href="#sec-commitment" class="pipeline-step" data-step="4">
+        <span class="step-num">4</span> Three-Layer Commitment
+      </a>
+      <span class="pipeline-sep">→</span>
+      <a href="#sec-roadmap" class="pipeline-step" data-step="5">
+        <span class="step-num">5</span> Investment Roadmap
+      </a>
+      <span class="pipeline-sep">→</span>
+      <a href="#sec-costs" class="pipeline-step" data-step="6">
+        <span class="step-num">6</span> Cost Sensitivity
+      </a>
+      <span class="pipeline-sep">→</span>
+      <a href="#sec-brief" class="pipeline-step" data-step="7">
+        <span class="step-num">7</span> Strategy Brief
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Strategic Planning Application Workspace -->
+  <main class="app-main">
+    <div class="layout-grid">
+      
+      <!-- LEFT COLUMN: Scenario Management & Planning Controls -->
+      <aside class="sidebar-panel">
+        
+        <!-- Scenario Management Box -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Scenario Management</h3>
+            <span class="system-badge" style="background:var(--primary-soft); color:var(--primary); border:none;">v1.2</span>
+          </div>
+
+          <div class="scenario-selector-box">
+            <label class="select-label" for="scenarioSelect">Active Scenario</label>
+            <select id="scenarioSelect" class="custom-select"></select>
+          </div>
+
+          <!-- Scenario Situation & Strategic Move Summary -->
+          <div id="scenarioDescriptionBox" class="scenario-desc-box">
+            Loading scenario situation...
+          </div>
+
+          <div class="scenario-actions-row">
+            <button id="btnResetScenario" class="btn btn-secondary btn-sm" title="Reset current inputs to baseline">Reset Values</button>
+            <button id="btnSaveScenarioModal" class="btn btn-primary btn-sm" title="Save current parameters under a custom scenario name">Save As...</button>
+            <button id="btnDeleteScenario" class="btn btn-danger-outline btn-sm" style="display:none;" title="Delete this custom scenario">Delete</button>
+          </div>
+        </div>
+
+        <!-- Inputs Group 1: Market Intelligence & Demand Growth -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Market Intelligence</h3>
+            <span style="font-size:11px; color:var(--text-muted); font-weight:600;">% p.a. Signals</span>
+          </div>
+
+          <!-- Market Demand Growth -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputMarketGrowth">Market Demand Growth</label>
+              <span id="valMarketGrowth" style="font-weight:700; color:var(--primary); font-size:12px;">+14.0%</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputMarketGrowth" class="slider-input" min="-10" max="30" step="0.5">
+              <input type="number" id="numMarketGrowth" class="number-input" min="-10" max="30" step="0.5">
+            </div>
+            <div class="field-limits"><span>-10% (Contraction)</span><span>+30% (Boom)</span></div>
+          </div>
+
+          <!-- Business Growth Ambition -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputAmbitionGrowth">Business Growth Ambition</label>
+              <span id="valAmbitionGrowth" style="font-weight:700; color:var(--secondary); font-size:12px;">+18.0%</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputAmbitionGrowth" class="slider-input" min="0" max="35" step="0.5">
+              <input type="number" id="numAmbitionGrowth" class="number-input" min="0" max="35" step="0.5">
+            </div>
+            <div class="field-limits"><span>0% (Hold share)</span><span>+35% (Aggressive target)</span></div>
+          </div>
+
+          <!-- Competitor Capacity Growth -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputCompGrowth">Competitor Capacity Growth</label>
+              <span id="valCompGrowth" style="font-weight:700; color:var(--layer-watch); font-size:12px;">+2.0%</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputCompGrowth" class="slider-input" min="-10" max="25" step="0.5">
+              <input type="number" id="numCompGrowth" class="number-input" min="-10" max="25" step="0.5">
+            </div>
+            <div class="field-limits"><span>-10% (Withdrawal)</span><span>+25% (Overbuilding)</span></div>
+          </div>
+        </div>
+
+        <!-- Inputs Group 2: Fleet Operational Parameters -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Fleet Operations & Buffer</h3>
+            <span style="font-size:11px; color:var(--text-muted); font-weight:600;">Baseline</span>
+          </div>
+
+          <!-- Current Fleet Capacity (TEU) -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputCurrentCap">Current Available Fleet Capacity</label>
+              <span id="valCurrentCap" style="font-weight:700; font-size:12px;">160,000 TEU</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputCurrentCap" class="slider-input" min="30000" max="400000" step="5000">
+              <input type="number" id="numCurrentCap" class="number-input" min="30000" max="400000" step="5000">
+            </div>
+            <div class="field-limits"><span>30k TEU</span><span>400k TEU</span></div>
+          </div>
+
+          <!-- Existing Fleet Utilisation (%) -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputCurrentUtil">Existing Fleet Utilisation</label>
+              <span id="valCurrentUtil" style="font-weight:700; font-size:12px;">92.0%</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputCurrentUtil" class="slider-input" min="50" max="100" step="1">
+              <input type="number" id="numCurrentUtil" class="number-input" min="50" max="100" step="1">
+            </div>
+            <div class="field-limits"><span>50% (Slack)</span><span>100% (Full capacity)</span></div>
+          </div>
+
+          <!-- Planning Horizon (Years) -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputHorizon">Planning Horizon</label>
+              <span id="valHorizon" style="font-weight:700; color:var(--primary); font-size:12px;">3 Years</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputHorizon" class="slider-input" min="1" max="5" step="1">
+              <input type="number" id="numHorizon" class="number-input" min="1" max="5" step="1">
+            </div>
+            <div class="field-limits"><span>1 Year (Tactical)</span><span>5 Years (Strategic)</span></div>
+          </div>
+
+          <!-- Target Capacity Buffer (%) -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputBuffer">Target Capacity Buffer</label>
+              <span id="valBuffer" style="font-weight:700; font-size:12px;">10.0%</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputBuffer" class="slider-input" min="0" max="25" step="1">
+              <input type="number" id="numBuffer" class="number-input" min="0" max="25" step="1">
+            </div>
+            <div class="field-limits"><span>0% (Lean)</span><span>25% (Resilient)</span></div>
+          </div>
+        </div>
+
+        <!-- Inputs Group 3: Vessel Economics & Specifications -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Vessel Class & Economics</h3>
+            <span style="font-size:11px; color:var(--text-muted); font-weight:600;">Unit Metrics</span>
+          </div>
+
+          <!-- Selected Vessel Class Preset -->
+          <div class="field-container">
+            <label class="select-label" for="vesselClassSelect">Vessel Class Benchmark</label>
+            <select id="vesselClassSelect" class="custom-select"></select>
+          </div>
+
+          <!-- Vessel Annual Productivity (TEU/yr) -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputVesselProd">Vessel Productivity (TEU / yr)</label>
+              <span id="valVesselProd" style="font-weight:700; font-size:12px;">32,000 TEU</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputVesselProd" class="slider-input" min="15000" max="90000" step="1000">
+              <input type="number" id="numVesselProd" class="number-input" min="15000" max="90000" step="1000">
+            </div>
+            <div class="field-limits"><span>15k (Feeder)</span><span>90k (Neo-Panamax)</span></div>
+          </div>
+
+          <!-- Average Annual Vessel Operating Cost ($) -->
+          <div class="field-container">
+            <div class="field-header">
+              <label class="field-label" for="inputOpCost">Annual Vessel OpCost ($/yr)</label>
+              <span id="valOpCost" style="font-weight:700; font-size:12px;">$8,500,000</span>
+            </div>
+            <div class="field-inputs-row">
+              <input type="range" id="inputOpCost" class="slider-input" min="3000000" max="25000000" step="250000">
+              <input type="number" id="numOpCost" class="number-input" min="3000000" max="25000000" step="250000">
+            </div>
+            <div class="field-limits"><span>$3M</span><span>$25M</span></div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- RIGHT COLUMN: Dashboard & Decision Engine Outputs -->
+      <section class="dashboard-content">
+
+        <!-- 1. Strategic Posture & Decision Engine Explanation Card -->
+        <div id="sec-posture" class="posture-banner">
+          <div id="postureBadgeContainer" class="posture-badge-container badge-aggressive">
+            <div class="posture-badge-label">RECOMMENDED POSTURE</div>
+            <div id="postureTitle" class="posture-badge-title">AGGRESSIVE GROWTH</div>
+          </div>
+          <div class="posture-info-container">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <h2>Decision Engine Interpretation</h2>
+              <span class="system-badge" style="background:var(--primary-soft); color:var(--primary); border:1px solid var(--layer-locked-border);">Deterministic Rule Triggered</span>
+            </div>
+            <p id="postureRationale">
+              High market demand combined with robust business ambition and sluggish competitor fleet expansion presents an immediate strategic window to secure market share ahead of the industry.
+            </p>
+            <div class="signals-list" id="postureSignalsList">
+              <!-- Dynamically populated signals -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Executive KPI Cards -->
+        <div class="kpi-grid">
+          <!-- Projected Demand KPI -->
+          <div class="card kpi-card kpi-ocean">
+            <div class="kpi-label">Projected Demand (Year <span id="kpiHorizonYear">3</span>)</div>
+            <div id="kpiProjectedDemand" class="kpi-value">— TEU</div>
+            <div class="kpi-footer">
+              Baseline: <span id="kpiInitialDemand" style="font-weight:600; color:var(--text-main);">— TEU</span>
+              <span id="kpiDemandGrowthBadge" class="badge-trend-up">+18.0% p.a.</span>
+            </div>
+          </div>
+
+          <!-- Required Capacity KPI -->
+          <div class="card kpi-card kpi-teal">
+            <div class="kpi-label">Required Fleet Capacity</div>
+            <div id="kpiRequiredCap" class="kpi-value">— TEU</div>
+            <div class="kpi-footer">
+              Includes <span id="kpiBufferPct">10%</span> safety buffer @ 88% util
+            </div>
+          </div>
+
+          <!-- Vessel Equivalents KPI -->
+          <div class="card kpi-card kpi-navy">
+            <div class="kpi-label">Required Vessels (Base)</div>
+            <div id="kpiVesselCount" class="kpi-value">— Vessels</div>
+            <div class="kpi-footer">
+              <span id="kpiAddVessels" style="font-weight:700; color:var(--secondary);">+— Additional</span>
+              (Current: <span id="kpiCurrentVessels">—</span>)
+            </div>
+          </div>
+
+          <!-- Indicative Annual Cost KPI -->
+          <div class="card kpi-card kpi-amber">
+            <div class="kpi-label">Indicative Fleet Cost (Base)</div>
+            <div id="kpiFleetCost" class="kpi-value">$— M</div>
+            <div class="kpi-footer">
+              Incremental: <span id="kpiIncrCost" style="font-weight:700; color:var(--layer-watch);">$— M / yr</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Capacity Position & Visual Bar Analysis -->
+        <div id="sec-capacity" class="card">
+          <div class="card-header">
+            <h3>2. Capacity Requirements & Network Gap Analysis</h3>
+            <span style="font-size:11px; color:var(--text-muted); font-weight:600;">TEU / Year</span>
+          </div>
+          <p class="card-subtitle">
+            Reconciliation of current available fleet supply against projected demand and buffered capacity requirements across sensitivity cases.
+          </p>
+
+          <div class="capacity-bars-container" id="capacityBarsContainer">
+            <!-- Dynamic Bars Rendered via JS -->
+          </div>
+
+          <!-- Capacity Callout / Gap Status -->
+          <div id="capacityCalloutBox" class="capacity-callout callout-shortfall">
+            <div>
+              <strong id="calloutTitle">Capacity Shortfall Detected</strong>
+              <div id="calloutDesc" style="font-size:12px; margin-top:2px;">
+                Required capacity exceeds current fleet by 48,000 TEU/year. Immediate vessel procurement needed.
+              </div>
+            </div>
+            <div id="calloutStats" style="text-align:right; font-weight:700; font-size:13px;">
+              Net Gap: -48,000 TEU
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Three-Layer Capacity Commitment Strategy -->
+        <div id="sec-commitment" class="card">
+          <div class="card-header">
+            <h3>4. Three-Layer Capacity Commitment Strategy</h3>
+            <span class="system-badge" style="background:var(--primary-soft); color:var(--primary); border:none; font-weight:700;">CORE ARCHITECTURE</span>
+          </div>
+          <p class="card-subtitle">
+            Splits incremental capacity requirements into three risk-tiered commitment layers: Locked, Flexible, and Watch Zone. Reconciles 100% with low, base, and high demand cases.
+          </p>
+
+          <!-- The Three Strategic Commitment Cards -->
+          <div class="commitment-layers-grid">
+            
+            <!-- Layer 1: Locked Capacity -->
+            <div class="commitment-card card-layer-locked">
+              <div>
+                <span class="layer-tag tag-locked">LOCKED CAPACITY</span>
+                <div class="layer-capacity-number" id="layerLockedTEU">— TEU</div>
+                <div class="layer-vessel-count" id="layerLockedVessels">— Vessel Equivalents (<span id="layerLockedShare">0%</span>)</div>
+              </div>
+              <div class="layer-meta-section">
+                <div class="layer-meta-title">Commitment Approach:</div>
+                <div class="layer-meta-text" id="layerLockedApproach">Owned newbuilds / Long-term firm charters (3-5+ years)</div>
+                <div class="layer-meta-title">Strategic Rationale:</div>
+                <div class="layer-meta-text" id="layerLockedRationale">
+                  Required even under the low-demand scenario. Minimum risk floor; guaranteed absorption.
+                </div>
+                <div style="font-size:11px; font-weight:700; color:var(--layer-locked);">
+                  Risk Exposure: Minimal (Guaranteed Base Demand)
+                </div>
+              </div>
+            </div>
+
+            <!-- Layer 2: Flexible Capacity -->
+            <div class="commitment-card card-layer-flex">
+              <div>
+                <span class="layer-tag tag-flexible">FLEXIBLE CAPACITY</span>
+                <div class="layer-capacity-number" id="layerFlexTEU">— TEU</div>
+                <div class="layer-vessel-count" id="layerFlexVessels">— Vessel Equivalents (<span id="layerFlexShare">0%</span>)</div>
+              </div>
+              <div class="layer-meta-section">
+                <div class="layer-meta-title">Commitment Approach:</div>
+                <div class="layer-meta-text" id="layerFlexApproach">Short/medium-term charters (6-18 mo), index-linked, slot swaps</div>
+                <div class="layer-meta-title">Strategic Rationale:</div>
+                <div class="layer-meta-text" id="layerFlexRationale">
+                  Covers incremental gap between low and base cases. Captures growth while preserving off-hire optionality.
+                </div>
+                <div style="font-size:11px; font-weight:700; color:var(--layer-flex);">
+                  Risk Exposure: Moderate (Adjustable on short notice)
+                </div>
+              </div>
+            </div>
+
+            <!-- Layer 3: Watch Zone Capacity -->
+            <div class="commitment-card card-layer-watch">
+              <div>
+                <span class="layer-tag tag-watch">WATCH ZONE CAPACITY</span>
+                <div class="layer-capacity-number" id="layerWatchTEU">— TEU</div>
+                <div class="layer-vessel-count" id="layerWatchVessels">— Vessel Equivalents (<span id="layerWatchShare">0%</span>)</div>
+              </div>
+              <div class="layer-meta-section">
+                <div class="layer-meta-title">Commitment Approach:</div>
+                <div class="layer-meta-text" id="layerWatchApproach">Uncommitted purchase/charter options, contingent space, broker watch</div>
+                <div class="layer-meta-title">Strategic Rationale:</div>
+                <div class="layer-meta-text" id="layerWatchRationale">
+                  Required only if market surges to high-demand case. Zero fixed capital commitment until market trigger trips.
+                </div>
+                <div style="font-size:11px; font-weight:700; color:var(--layer-watch);">
+                  Risk Exposure: Zero Fixed Cost (Call Options Only)
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Mathematical Reconciliation Waterfall Stack -->
+          <div class="reconciliation-box">
+            <div class="reconcile-header">
+              <span>Mathematical Reconciliation: Incremental Capacity Allocation</span>
+              <span id="reconcileTotalLabel" style="color:var(--primary);">Total High Requirement: — TEU</span>
+            </div>
+            
+            <div class="stacked-reconcile-bar" id="reconcileStackedBar">
+              <!-- Dynamically rendered slices -->
+            </div>
+
+            <div class="reconcile-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#71717A;"></span> Current Fleet Base</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--layer-locked);"></span> Locked Layer (Low Case)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--layer-flex);"></span> Flexible Layer (Base Case Delta)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--layer-watch);"></span> Watch Zone Layer (High Case Upside)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Vessel Fleet Specifications & Deployment Suitability -->
+        <div id="sec-vessels" class="card">
+          <div class="card-header">
+            <h3>3. Vessel Fleet Specifications & Deployment Suitability</h3>
+            <span style="font-size:11px; color:var(--text-muted); font-weight:600;">Benchmark Classes</span>
+          </div>
+          <p class="card-subtitle">
+            Selected vessel benchmark specifications compared with standard commercial container vessel classes.
+          </p>
+
+          <table class="vessel-specs-table">
+            <thead>
+              <tr>
+                <th>Vessel Class</th>
+                <th>Nominal TEU</th>
+                <th>Effective TEU</th>
+                <th>Annual Productivity</th>
+                <th>Est. Annual OpCost</th>
+                <th>Required Fleet Count</th>
+                <th>Deployment Suitability</th>
+              </tr>
+            </thead>
+            <tbody id="vesselSpecsTableBody">
+              <!-- Dynamically populated from VESSEL_CLASSES -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 6. Cost & Return Sensitivity Analysis -->
+        <div id="sec-costs" class="card">
+          <div class="card-header">
+            <h3>6. Cost & Return Sensitivity Analysis (Low, Base, High Bands)</h3>
+            <span class="system-badge" style="background:#FFFBEB; color:#92400E; border:none;">ILLUSTRATIVE SENSITIVITY</span>
+          </div>
+          <p class="card-subtitle">
+            Sensitivity modeling based on ±10% to +15% operational cost variations (fuel, charter rates, port tariffs).
+          </p>
+
+          <div class="cost-bands-grid">
+            <!-- Low Cost Band -->
+            <div class="cost-band-card">
+              <div class="cost-band-title">Low Cost Case (-10%)</div>
+              <div class="cost-band-value" id="costLowTotal">$— M</div>
+              <div class="cost-metric-row"><span>Unit Vessel OpCost:</span><strong id="costLowUnit">$— M</strong></div>
+              <div class="cost-metric-row"><span>Incremental Fleet Cost:</span><strong id="costLowIncr">$— M</strong></div>
+              <div class="cost-metric-row"><span>Average Cost per TEU:</span><strong id="costLowPerTEU">$—</strong></div>
+              <div class="cost-metric-row"><span>Locked Layer Cost:</span><span id="costLowLocked">$— M</span></div>
+              <div class="cost-metric-row"><span>Flexible Layer Cost:</span><span id="costLowFlex">$— M</span></div>
+            </div>
+
+            <!-- Base Cost Band -->
+            <div class="cost-band-card band-base">
+              <div class="cost-band-title" style="color:var(--primary);">Base Cost Case (100%)</div>
+              <div class="cost-band-value" id="costBaseTotal" style="color:var(--primary);">$— M</div>
+              <div class="cost-metric-row"><span>Unit Vessel OpCost:</span><strong id="costBaseUnit">$— M</strong></div>
+              <div class="cost-metric-row"><span>Incremental Fleet Cost:</span><strong id="costBaseIncr">$— M</strong></div>
+              <div class="cost-metric-row"><span>Average Cost per TEU:</span><strong id="costBasePerTEU">$—</strong></div>
+              <div class="cost-metric-row"><span>Locked Layer Cost:</span><span id="costBaseLocked">$— M</span></div>
+              <div class="cost-metric-row"><span>Flexible Layer Cost:</span><span id="costBaseFlex">$— M</span></div>
+            </div>
+
+            <!-- High Cost Band -->
+            <div class="cost-band-card">
+              <div class="cost-band-title">High Cost Case (+15%)</div>
+              <div class="cost-band-value" id="costHighTotal">$— M</div>
+              <div class="cost-metric-row"><span>Unit Vessel OpCost:</span><strong id="costHighUnit">$— M</strong></div>
+              <div class="cost-metric-row"><span>Incremental Fleet Cost:</span><strong id="costHighIncr">$— M</strong></div>
+              <div class="cost-metric-row"><span>Average Cost per TEU:</span><strong id="costHighPerTEU">$—</strong></div>
+              <div class="cost-metric-row"><span>Locked Layer Cost:</span><span id="costHighLocked">$— M</span></div>
+              <div class="cost-metric-row"><span>Flexible Layer Cost:</span><span id="costHighFlex">$— M</span></div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; font-size:11px; color:var(--text-muted); font-style:italic;">
+            Note: Figures represent deterministic sensitivity bounds for planning purposes only. Watch Zone capacity incurs an illustrative 5% holding/option reservation fee until exercised.
+          </div>
+        </div>
+
+        <!-- 7. Fleet Investment & Deployment Roadmap (Gantt-style) -->
+        <div id="sec-roadmap" class="card">
+          <div class="card-header">
+            <h3>5. Fleet Investment & Deployment Roadmap</h3>
+            <span style="font-size:11px; color:var(--text-muted); font-weight:600;"><span id="roadmapQuarterCount">12</span> Quarters Schedule</span>
+          </div>
+          <p class="card-subtitle">
+            Gantt-style milestone schedule dynamically sequencing capacity confirmation, vessel chartering/acquisition, and phased trade lane induction.
+          </p>
+
+          <div class="roadmap-container">
+            <div class="gantt-chart" id="ganttChart">
+              <!-- Dynamically rendered Gantt chart rows -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Strategy Brief Preview & Generation -->
+        <div id="sec-brief" class="card">
+          <div class="card-header">
+            <h3>7. Executive Strategy Brief</h3>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-secondary btn-sm" id="btnCopyBrief">Copy Text</button>
+              <button class="btn btn-secondary btn-sm" id="btnDownloadBriefTxt">Download .TXT</button>
+              <button class="btn btn-primary btn-sm" id="btnPrintBrief">Print / Save PDF</button>
+            </div>
+          </div>
+          <p class="card-subtitle">
+            Dynamically synthesized executive brief explaining market signals, strategic posture, 3-layer commitment allocation, investment roadmap, and risk controls.
+          </p>
+
+          <div class="brief-container" id="briefContainer">
+            <!-- Dynamically populated formatted brief -->
+          </div>
+        </div>
+
+        <!-- Disclaimer Footer -->
+        <div style="padding:14px; background:var(--bg-card-subtle); border:1px solid var(--border-light); border-radius:var(--radius-md); font-size:11px; color:var(--text-muted); line-height:1.6;">
+          <strong>Planning Prototype Disclosure:</strong> SAIL utilizes deterministic, rule-based calculations and synthetic baseline data for strategic capacity prototyping. Output figures are illustrative and must be validated with Network Planning, Commercial Chartering, and Executive Finance before making commercial commitments.
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal: Save Custom Scenario -->
+  <div id="saveScenarioModal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 class="modal-title">Save Custom Scenario</h3>
+      <p style="font-size:12px; color:var(--text-muted);">
+        Save your active slider settings and vessel assumptions as a named scenario. It will be stored locally in your browser session for seamless switching.
+      </p>
+      <input type="text" id="customScenarioNameInput" class="modal-input" placeholder="e.g., Transpacific Peak Surge 2027" maxlength="60">
+      <div class="modal-actions">
+        <button id="btnCancelSaveScenario" class="btn btn-secondary">Cancel</button>
+        <button id="btnConfirmSaveScenario" class="btn btn-primary">Save Scenario</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Model Methodology & Formulas -->
+  <div id="methodologyModal" class="modal-overlay">
+    <div class="modal-card" style="max-width:720px; max-height:85vh; overflow-y:auto;">
+      <h3 class="modal-title">SAIL Mathematical Model & Methodology</h3>
+      <div style="font-size:12px; color:var(--text-main); line-height:1.6;">
+        <h4 style="margin:12px 0 6px; color:var(--primary);">1. Forecast Demand Projections</h4>
+        <p>
+          Initial carried demand is calculated from current fleet capacity and utilization: <br>
+          <code>Initial Demand = Current Capacity × (Existing Utilisation / 100)</code><br>
+          For horizon <code>Y</code> years with ambition rate <code>g</code>: <br>
+          <code>Base Demand = Initial Demand × (1 + g)^Y</code>
+        </p>
+
+        <h4 style="margin:12px 0 6px; color:var(--primary);">2. Required Fleet Capacity & Buffer</h4>
+        <p>
+          To safeguard against operational friction and port congestion, capacity is buffered at an 88% target operating load: <br>
+          <code>Required Capacity = [Forecast Demand × (1 + Buffer%)] / 0.88</code>
+        </p>
+
+        <h4 style="margin:12px 0 6px; color:var(--primary);">3. Three-Layer Commitment Reconciliation</h4>
+        <p>
+          Incremental capacity required is reconciled across demand cases: <br>
+          • <strong>Locked Capacity:</strong> <code>max(0, Required_Low - Current_Capacity)</code><br>
+          • <strong>Flexible Capacity:</strong> <code>max(0, Required_Base - max(Current_Capacity, Required_Low))</code><br>
+          • <strong>Watch Zone Capacity:</strong> <code>max(0, Required_High - max(Current_Capacity, Required_Base))</code><br>
+          Total High Requirement = Current Fleet + Locked + Flexible + Watch Zone (100% reconciled).
+        </p>
+
+        <h4 style="margin:12px 0 6px; color:var(--primary);">4. Rule-Based Posture Engine</h4>
+        <p>
+          Evaluates market demand growth, business ambition, and competitor additions to output <em>Aggressive Growth</em>, <em>Defensive Growth</em>, <em>Flexible Expansion</em>, or <em>Capacity Preservation</em>.
+        </p>
+      </div>
+      <div class="modal-actions" style="margin-top:20px;">
+        <button id="btnCloseMethodology" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="data-scenarios.js"></script>
+  <script src="calc-engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
